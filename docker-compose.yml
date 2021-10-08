@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:13-alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: MoreTech
+      POSTGRES_USER: MoreTech
+      POSTGRES_PASSWORD: MoreTech
+    volumes:
+      - "MoreTech:/var/lib/postgresql/data/"
+
+volumes:
+  MoreTech:
