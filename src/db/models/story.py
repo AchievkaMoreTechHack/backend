@@ -7,11 +7,13 @@ class Story(Base):
     __tablename__ = "stories"
 
     id = Column(Integer, primary_key=True)
-
-    next = Column(Integer, nullable=True)
-    prev = Column(Integer, nullable=True)
-
-    # next = relationship("Story", remote_side=["id"], backref="next_story")
-    # prev = relationship("Story", remote_side=["id"], backref="prev_story")
-
-    description = Column(String)
+    next = Column(String, nullable=True)  # url
+    prev = Column(String, nullable=True)  # url
+    story = Column(String)  # list
+    description = Column(String, nullable=True)
+    description_preview = Column(String, nullable=True)
+    action_type = Column(String, nullable=True)  # button/edittext/gender
+    action_data = Column(String, nullable=True)  # list
+    background = Column(String)  # url
+    character = Column(String, nullable=True)  # url
+    position = Column(String, nullable=True)  # center/side

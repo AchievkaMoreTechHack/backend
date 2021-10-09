@@ -9,6 +9,8 @@ BASE_DIR = Path(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))).par
 #  Develop
 DEBUG = os.getenv("DEBUG", "True").lower() == "true"
 
+# URLs
+API_URL = os.getenv("API_URL")
 
 # Database
 POSTGRES_USER = os.getenv("POSTGRES_USER", "MoreTech")

@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from core.config import DEBUG
 from core.routes import router
 from db.base import Base, engine
+from services.fixtures import import_fixture
 
 
 def get_application() -> FastAPI:
@@ -22,6 +23,7 @@ async def startup():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
+    await import_fixture()
 
 
 if __name__ == "__main__":

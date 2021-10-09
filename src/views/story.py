@@ -17,6 +17,6 @@ async def get_all_stories(session: AsyncSession = Depends(get_session)) -> List[
 
 
 @router.get("/story/{story_id}")
-async def update_book(story_id: int, session: AsyncSession = Depends(get_session)):
-    story_dal = StoryDAL(session)
-    return await story_dal.get_book(story_id)
+async def get_story(story_id, session: AsyncSession = Depends(get_session)):
+    # TODO return story
+    return {"story": story_id}
