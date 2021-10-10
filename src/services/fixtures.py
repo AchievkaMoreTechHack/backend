@@ -25,7 +25,7 @@ async def import_fixture():
                 for index, value in enumerate(new_list_male):
                     if index % 2 == 1:
                         new_list_male[index] = create_url_story(value)
-                story.new_list_male = json.dumps(new_list_male)
+                story.action_data_male = json.dumps(new_list_male)
 
                 new_list_female = json.loads(story.action_data_female)
                 for index, value in enumerate(new_list_female):

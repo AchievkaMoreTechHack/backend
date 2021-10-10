@@ -12,7 +12,7 @@ async def get_all_stories(session: AsyncSession = Depends(get_session)) -> dict:
     story_dal = StoryDAL(session)
     all_stories = await story_dal.get_all_stories()
     if not all_stories:
-        return {"version": "1.0", "startId": "1", "stories": []}
+        return {"version": "1.0", "startId": 1, "stories": []}
     return all_stories
 
 
