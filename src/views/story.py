@@ -1,22 +1,22 @@
-from typing import List
-
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from db.base import get_session
 from db.dals.story import StoryDAL
-from db.models.story import Story
 
 router = APIRouter()
 
 
 @router.get("/story")
-async def get_all_stories(session: AsyncSession = Depends(get_session)) -> List[Story]:
+async def get_all_stories(session: AsyncSession = Depends(get_session)) -> dict:
     story_dal = StoryDAL(session)
-    return await story_dal.get_all_books()
+    all_stories = await story_dal.get_all_stories()
+    if not all_stories:
+        return {"version": "1.0", "startId": "1", "stories": []}
+    return all_stories
 
 
-@router.get("/story/{story_id}")
-async def get_story(story_id, session: AsyncSession = Depends(get_session)):
-    # TODO return story
-    return {"story": story_id}
+@router.get("/story/{story_id:int}")
+async def get_story(story_id: int, session: AsyncSession = Depends(get_session)):
+    story_dal = StoryDAL(session)
+    return await story_dal.get_story(story_id)

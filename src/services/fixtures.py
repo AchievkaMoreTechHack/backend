@@ -1,9 +1,36 @@
+import json
+
 from db.base import async_session
 from db.models.story import Story
+from services.data.fixture import fixtures
+from services.urls import create_url_story
 
 
 async def import_fixture():
     async with async_session() as session:
-        a = Story(story='["asdf", "a"]', prev="asdf1", background="backgroundadf")
-        session.add(a)
+        fixture_len = len(fixtures)
+        for id, story_dict in enumerate(fixtures):
+            id = id + 1
+            next = str(id + 1)
+            prev = str(id - 1)
+            if id == '1':
+                prev = None
+            if id == str(fixture_len):
+                next = None
+            story = Story(id=id, next=next, prev=prev, **story_dict)
+            if not story.story_female or not story.story_male or not story.background:
+                raise Exception("no required fields")
+            if story.action_type == 'button':
+                new_list_male = json.loads(story.action_data_male)
+                for index, value in enumerate(new_list_male):
+                    if index % 2 == 1:
+                        new_list_male[index] = create_url_story(value)
+                story.new_list_male = json.dumps(new_list_male)
+
+                new_list_female = json.loads(story.action_data_female)
+                for index, value in enumerate(new_list_female):
+                    if index % 2 == 1:
+                        new_list_female[index] = create_url_story(value)
+                story.action_data_female = json.dumps(new_list_female)
+            session.add(story)
         await session.commit()
