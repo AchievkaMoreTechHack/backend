@@ -13,14 +13,14 @@ async def import_fixture():
             id = id + 1
             next = str(id + 1)
             prev = str(id - 1)
-            if id == '1':
+            if id == "1":
                 prev = None
             if id == str(fixture_len):
                 next = None
             story = Story(id=id, next=next, prev=prev, **story_dict)
             if not story.story_female or not story.story_male or not story.background:
                 raise Exception("no required fields")
-            if story.action_type == 'button':
+            if story.action_type == "button":
                 new_list_male = json.loads(story.action_data_male)
                 for index, value in enumerate(new_list_male):
                     if index % 2 == 1:

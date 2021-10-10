@@ -168,10 +168,9 @@ fixtures = [
         "character": "family_squirrel.png",
         "position": "side",
     },
-
 ]
 
-'''
+"""
     {
         "story_male": '',
         "story_female": '',
@@ -184,4 +183,4 @@ fixtures = [
         "character": "",
         "position": "",
     },
-'''
+"""
