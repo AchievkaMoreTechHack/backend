@@ -12,12 +12,16 @@ async def import_fixture():
         for id, story_dict in enumerate(fixtures):
             id = id + 1
             next = str(id + 1)
-            prev = str(id - 1)
-            if id == "1":
-                prev = None
+            prev_loc = str(id - 1)
+            if "next" in story_dict.keys():
+                next = story_dict['next']
+            if "prev" in story_dict.keys():
+                prev_loc = story_dict.pop("prev")
+            if id == 1:
+                prev_loc = None
             if id == str(fixture_len):
                 next = None
-            story = Story(id=id, next=next, prev=prev, **story_dict)
+            story = Story(id=id, next=next, prev=prev_loc, **story_dict)
             if not story.story_female or not story.story_male or not story.background:
                 raise Exception("no required fields")
             if story.action_type == "button":
