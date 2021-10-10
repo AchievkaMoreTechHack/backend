@@ -14,7 +14,7 @@ async def import_fixture():
             next = str(id + 1)
             prev_loc = str(id - 1)
             if "next" in story_dict.keys():
-                next = story_dict['next']
+                next = story_dict.pop("next")
             if "prev" in story_dict.keys():
                 prev_loc = story_dict.pop("prev")
             if id == 1:
